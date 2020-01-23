@@ -6,22 +6,29 @@ import java.util.stream.Collectors;
 public final class EmployeeMapper {
 
   public static EmployeeDto toEmployeeDto(Employee employee) {
+    Address address = employee.getAddress();
+
     return EmployeeDto.EmployeeDtoBuilder.create()
             .withId(employee.getId())
             .withFirstName(employee.getFirstName())
             .withLastName(employee.getLastName())
-            .withAddressLine1(employee.getAddress().toAddressLine1())
-            .withAddressLine2(employee.getAddress().toAddressLine2())
+            .withStreetNumber(address.getStreetNumber())
+            .withStreetName(address.getStreetName())
+            .withPostcode(address.getPostcode())
+            .withCity(address.getCity())
+            .withCountry(address.getCountry())
             .withSalary(employee.getSalary())
             .build();
   }
 
   public static Employee toEmployee(EmployeeDto employee) {
+    Address address = new Address(employee.getStreetNumber(),employee.getStreetName(), employee.getPostcode(), employee.getCity(), employee.getCountry());
+
     return Employee.EmployeeBuilder.create()
             .withId(employee.getId())
             .withFirstName(employee.getFirstName())
             .withLastName(employee.getLastName())
-            .withAddress(employee.getAddress())
+            .withAddress(address)
             .withSalary(employee.getSalary())
             .build();
   }
