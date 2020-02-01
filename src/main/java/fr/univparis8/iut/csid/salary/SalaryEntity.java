@@ -1,6 +1,9 @@
 package fr.univparis8.iut.csid.salary;
 
 
+import fr.univparis8.iut.csid.employee.Employee;
+import fr.univparis8.iut.csid.employee.EmployeeEntity;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,34 +12,43 @@ public class SalaryEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
-
+  private Long id;
+  @ManyToOne(fetch=FetchType.EAGER)
+  @JoinColumn
+  private EmployeeEntity employee;
   @Column(name = "amount")
   private double amount;
-  @Column(name = "month")
-  private int month;
-  @Column(name = "year")
-  private int year;
-  @Column(name = "date")
-  private String date;
+  @Column(name = "month_year")
+  private String monthYear;
+  @Column(name = "payment_date")
+  private String paymentDate;
   @Column(name = "daysOfWork")
   private int daysOfWork;
 
-  public SalaryEntity(long id, double amount, int month, int year, String date, int daysOfWork) {
+
+  public SalaryEntity(Long id, EmployeeEntity employee, double amount, String monthYear, String paymentDate, int daysOfWork) {
     this.id = id;
+    this.employee = employee;
     this.amount = amount;
-    this.month = month;
-    this.year = year;
-    this.date = date;
+    this.monthYear = monthYear;
+    this.paymentDate = paymentDate;
     this.daysOfWork = daysOfWork;
   }
 
-  public long getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(Long id) {
     this.id = id;
+  }
+
+  public EmployeeEntity getEmployee() {
+    return employee;
+  }
+
+  public void setEmployee(EmployeeEntity employee) {
+    this.employee = employee;
   }
 
   public double getAmount() {
@@ -47,28 +59,20 @@ public class SalaryEntity {
     this.amount = amount;
   }
 
-  public int getMonth() {
-    return month;
+  public String getMonthYear() {
+    return monthYear;
   }
 
-  public void setMonth(int month) {
-    this.month = month;
+  public void setMonthYear(String monthYear) {
+    this.monthYear = monthYear;
   }
 
-  public int getYear() {
-    return year;
+  public String getPaymentDate() {
+    return paymentDate;
   }
 
-  public void setYear(int year) {
-    this.year = year;
-  }
-
-  public String getDate() {
-    return date;
-  }
-
-  public void setDate(String date) {
-    this.date = date;
+  public void setPaymentDate(String paymentDate) {
+    this.paymentDate = paymentDate;
   }
 
   public int getDaysOfWork() {
@@ -77,5 +81,56 @@ public class SalaryEntity {
 
   public void setDaysOfWork(int daysOfWork) {
     this.daysOfWork = daysOfWork;
+  }
+
+
+  public static final class SalaryEntityBuilder {
+    private Long id;
+    private EmployeeEntity employee;
+    private double amount;
+    private String monthYear;
+    private String paymentDate;
+    private int daysOfWork;
+
+    private SalaryEntityBuilder() {
+    }
+
+    public static SalaryEntityBuilder create() {
+      return new SalaryEntityBuilder();
+    }
+
+    public SalaryEntityBuilder withId(Long id) {
+      this.id = id;
+      return this;
+    }
+
+    public SalaryEntityBuilder withEmployee(EmployeeEntity employee) {
+      this.employee = employee;
+      return this;
+    }
+
+    public SalaryEntityBuilder withAmount(double amount) {
+      this.amount = amount;
+      return this;
+    }
+
+    public SalaryEntityBuilder withMonthYear(String monthYear) {
+      this.monthYear = monthYear;
+      return this;
+    }
+
+    public SalaryEntityBuilder withPaymentDate(String paymentDate) {
+      this.paymentDate = paymentDate;
+      return this;
+    }
+
+    public SalaryEntityBuilder withDaysOfWork(int daysOfWork) {
+      this.daysOfWork = daysOfWork;
+      return this;
+    }
+
+    public SalaryEntity build() {
+      return new SalaryEntity(id, employee, amount, monthYear, paymentDate, daysOfWork);
+    }
   }
 }
