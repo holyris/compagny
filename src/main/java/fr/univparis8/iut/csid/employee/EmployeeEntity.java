@@ -1,7 +1,11 @@
 package fr.univparis8.iut.csid.employee;
 
+import fr.univparis8.iut.csid.salary.SalaryEntity;
+
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "employee")
@@ -11,6 +15,9 @@ public class EmployeeEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
   private Long id;
+
+  @OneToMany(mappedBy = "employee")
+  private Set<SalaryEntity> salaries;
 
   @Column(name = "first_name")
   private String firstName;

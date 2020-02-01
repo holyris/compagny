@@ -3,41 +3,39 @@ package fr.univparis8.iut.csid.salary;
 import fr.univparis8.iut.csid.employee.Employee;
 
 public class SalaryDTO {
-  private long id;
-  private Employee employee;
+  private Long id;
+  private Long idEmployee;
   private double amount;
-  private int month;
-  private int year;
-  private String date;
+  private String monthYear;
+  private String paymentDate;
   private int daysOfWork;
+
+  public SalaryDTO(Long id, Long idEmployee, double amount, String monthYear, String paymentDate, int daysOfWork) {
+    this.id = id;
+    this.idEmployee = idEmployee;
+    this.amount = amount;
+    this.monthYear = monthYear;
+    this.paymentDate = paymentDate;
+    this.daysOfWork = daysOfWork;
+  }
 
   public SalaryDTO() {
   }
 
-  public SalaryDTO(long id, Employee employee, double amount, int month, int year, String date, int daysOfWork) {
-    this.id = id;
-    this.employee = employee;
-    this.amount = amount;
-    this.month = month;
-    this.year = year;
-    this.date = date;
-    this.daysOfWork = daysOfWork;
-  }
-
-  public long getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
-  public Employee getEmployee() {
-    return employee;
+  public Long getIdEmployee() {
+    return idEmployee;
   }
 
-  public void setEmployee(Employee employee) {
-    this.employee = employee;
+  public void setIdEmployee(Long idEmployee) {
+    this.idEmployee = idEmployee;
   }
 
   public double getAmount() {
@@ -48,28 +46,20 @@ public class SalaryDTO {
     this.amount = amount;
   }
 
-  public int getMonth() {
-    return month;
+  public String getMonthYear() {
+    return monthYear;
   }
 
-  public void setMonth(int month) {
-    this.month = month;
+  public void setMonthYear(String monthYear) {
+    this.monthYear = monthYear;
   }
 
-  public int getYear() {
-    return year;
+  public String getPaymentDate() {
+    return paymentDate;
   }
 
-  public void setYear(int year) {
-    this.year = year;
-  }
-
-  public String getDate() {
-    return date;
-  }
-
-  public void setDate(String date) {
-    this.date = date;
+  public void setPaymentDate(String paymentDate) {
+    this.paymentDate = paymentDate;
   }
 
   public int getDaysOfWork() {
@@ -78,5 +68,62 @@ public class SalaryDTO {
 
   public void setDaysOfWork(int daysOfWork) {
     this.daysOfWork = daysOfWork;
+  }
+
+  public static final class SalaryDTOBuilder {
+    private Long id;
+    private Long idEmployee;
+    private double amount;
+    private String monthYear;
+    private String paymentDate;
+    private int daysOfWork;
+
+    private SalaryDTOBuilder() {
+    }
+
+    public static SalaryDTOBuilder create() {
+      return new SalaryDTOBuilder();
+    }
+
+    public SalaryDTOBuilder withId(Long id) {
+      this.id = id;
+      return this;
+    }
+
+    public SalaryDTOBuilder withIdEmployee(Long idEmployee) {
+      this.idEmployee = idEmployee;
+      return this;
+    }
+
+    public SalaryDTOBuilder withAmount(double amount) {
+      this.amount = amount;
+      return this;
+    }
+
+    public SalaryDTOBuilder withMonthYear(String monthYear) {
+      this.monthYear = monthYear;
+      return this;
+    }
+
+    public SalaryDTOBuilder withPaymentDate(String paymentDate) {
+      this.paymentDate = paymentDate;
+      return this;
+    }
+
+    public SalaryDTOBuilder withDaysOfWork(int daysOfWork) {
+      this.daysOfWork = daysOfWork;
+      return this;
+    }
+
+    public SalaryDTO build() {
+      SalaryDTO salaryDTO = new SalaryDTO();
+      salaryDTO.setId(id);
+      salaryDTO.setIdEmployee(idEmployee);
+      salaryDTO.setAmount(amount);
+      salaryDTO.setMonthYear(monthYear);
+      salaryDTO.setPaymentDate(paymentDate);
+      salaryDTO.setDaysOfWork(daysOfWork);
+      return salaryDTO;
+    }
   }
 }
