@@ -1,6 +1,8 @@
 package fr.univparis8.iut.csid.employee;
 
 import fr.univparis8.iut.csid.exception.ObjectNotFoundException;
+import fr.univparis8.iut.csid.salary.Salary;
+import fr.univparis8.iut.csid.salary.SalaryMapper;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.PersistenceException;
@@ -56,6 +58,15 @@ public class EmployeeService {
   public void delete(Long id) {
     if (employeeRepository.existsById(id)) {
       employeeRepository.deleteById(id);
+    }
+  }
+
+  public List<Salary> getSalaries(Long id) {
+    try{
+      return SalaryMapper.toSalariesList(employeeRepository.getSalaries(id));
+
+    } catch (PersistenceException ex) {
+      throw new ObjectNotFoundException("Employee with id " + id + " not found");
     }
   }
 }

@@ -125,6 +125,7 @@ public class EmployeeEntity {
 
   public static final class EmployeeEntityBuilder {
     private Long id;
+    private Set<SalaryEntity> salaries;
     private String firstName;
     private String lastName;
     private int streetNumber;
@@ -146,6 +147,11 @@ public class EmployeeEntity {
       return this;
     }
 
+    public EmployeeEntityBuilder withSalaries(Set<SalaryEntity> salaries) {
+      this.salaries = salaries;
+      return this;
+    }
+
     public EmployeeEntityBuilder withFirstName(String firstName) {
       this.firstName = firstName;
       return this;
@@ -153,15 +159,6 @@ public class EmployeeEntity {
 
     public EmployeeEntityBuilder withLastName(String lastName) {
       this.lastName = lastName;
-      return this;
-    }
-
-    public EmployeeEntityBuilder withAddress(Address address) {
-      this.streetNumber = address.getStreetNumber();
-      this.streetName = address.getStreetName();
-      this.postcode = address.getPostcode();
-      this.city = address.getCity();
-      this.country = address.getCountry();
       return this;
     }
 
@@ -175,7 +172,7 @@ public class EmployeeEntity {
       return this;
     }
 
-    public EmployeeEntityBuilder withPostCode(int postcode) {
+    public EmployeeEntityBuilder withPostcode(int postcode) {
       this.postcode = postcode;
       return this;
     }
@@ -206,6 +203,7 @@ public class EmployeeEntity {
       employeeEntity.setCity(city);
       employeeEntity.setCountry(country);
       employeeEntity.setSalary(salary);
+      employeeEntity.salaries = this.salaries;
       return employeeEntity;
     }
   }

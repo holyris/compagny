@@ -3,6 +3,6 @@ create TABLE salary(
     amount integer,
     month_year varchar(255),
     payment_date date,
-    daysOfWork integer,
-    FOREIGN KEY (idEmployee) REFERENCES Employee(id)
+    days_of_work integer,
+    FOREIGN KEY (id_employee) REFERENCES Employee(id)
 );

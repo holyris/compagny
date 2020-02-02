@@ -2,6 +2,8 @@ package fr.univparis8.iut.csid.employee;
 
 import fr.univparis8.iut.csid.annotation.IdAndBodyMatcher;
 import fr.univparis8.iut.csid.exception.IdMismatchException;
+import fr.univparis8.iut.csid.salary.SalaryDto;
+import fr.univparis8.iut.csid.salary.SalaryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +32,11 @@ public class EmployeeController {
   @GetMapping("{id}")
   public EmployeeDto getEmployee(@PathVariable Long id) {
     return EmployeeMapper.toEmployeeDto(employeeService.get(id));
+  }
+
+  @GetMapping("{id}/salary")
+  public List<SalaryDto> getSalaries(@PathVariable Long id){
+    return SalaryMapper.toSalariesDtoList(employeeService.getSalaries(id));
   }
 
   @PostMapping

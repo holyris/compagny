@@ -1,155 +1,242 @@
 {
 	"info": {
-		"_postman_id": "ee5e21c8-055f-4020-aa90-0ef0160210e5",
+		"_postman_id": "d1a55163-46ff-4d57-9c43-429f719136de",
 		"name": "Company",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "http://localhost:8080/employees",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"firstName\" : \"jacques\", \"lastName\" : \"henri\" , \"streetNumber\" : \"10\", \"streetName\" : \"moi oui\", \"postcode\" : \"77340\" , \"city\" : \" Pontault-Combault\" , \"country\" : \"France\"}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Employee",
+			"item": [
+				{
+					"name": "http://localhost:8080/employees",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"jacques\",\n    \"lastName\": \"henri\",\n    \"streetNumber\": \"10\",\n    \"streetName\": \"avenue des boulevards\",\n    \"postcode\": \"77340\",\n    \"city\": \"Pontault-Combault\",\n    \"country\": \"France\",\n    \"salary\": 1000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/employees",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employees"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8080/employees",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"employees"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:8080/employees",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/employees",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"employees"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:8080/employees/1",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/employees/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"employees",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:8080/employees/1",
-			"request": {
-				"method": "PATCH",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"id\" : \"1\" ,\"streetNumber\" : \"10\", \"streetName\" : \"Patch\", \"postcode\" : \"77000\" , \"city\" : \" patch-Combault\" , \"country\" : \"patch\"}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "http://localhost:8080/employees",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/employees",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employees"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8080/employees/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"employees",
-						"1"
-					]
+				{
+					"name": "http://localhost:8080/employees/1",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/employees/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employees",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/employees/1",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"id\" : \"1\" ,\"streetNumber\" : \"10\", \"streetName\" : \"Patch\", \"postcode\" : \"77000\" , \"city\" : \" patch-Combault\" , \"country\" : \"patch\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/employees/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employees",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/employees/1",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"id\" : \"1\", \"firstName\" : \"put\", \"lastName\" : \"put\" , \"streetNumber\" : \"10\", \"streetName\" : \"put\", \"postcode\" : \"77340\" , \"city\" : \" put\" , \"country\" : \"put\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/employees/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employees",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/employees/1/salary",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/employees/1/salary",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employees",
+								"1",
+								"salary"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "http://localhost:8080/employees/1",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"id\" : \"1\", \"firstName\" : \"put\", \"lastName\" : \"put\" , \"streetNumber\" : \"10\", \"streetName\" : \"put\", \"postcode\" : \"77340\" , \"city\" : \" put\" , \"country\" : \"put\"}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Salary",
+			"item": [
+				{
+					"name": "http://localhost:8080/salaries",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idEmployee\":1,\n\t\"monthYear\":\"02/2019\",\n\t\"paymentDate\":\"2019/03/01\",\n\t\"daysOfWork\":17\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/salaries",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"salaries"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8080/employees/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"employees",
-						"1"
-					]
+				{
+					"name": "http://localhost:8080/salaries",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/salaries",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"salaries"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"protocolProfileBehavior": {}

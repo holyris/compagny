@@ -1,7 +1,5 @@
 package fr.univparis8.iut.csid.salary;
 
-
-import fr.univparis8.iut.csid.employee.Employee;
 import fr.univparis8.iut.csid.employee.EmployeeEntity;
 
 import javax.persistence.*;
@@ -13,7 +11,7 @@ public class SalaryEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  @ManyToOne(fetch=FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn
   private EmployeeEntity employee;
   @Column(name = "amount")
@@ -24,6 +22,9 @@ public class SalaryEntity {
   private String paymentDate;
   @Column(name = "daysOfWork")
   private int daysOfWork;
+
+  public SalaryEntity() {
+  }
 
 
   public SalaryEntity(Long id, EmployeeEntity employee, double amount, String monthYear, String paymentDate, int daysOfWork) {
