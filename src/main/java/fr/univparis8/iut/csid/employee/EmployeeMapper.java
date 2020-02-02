@@ -48,7 +48,11 @@ public final class EmployeeMapper {
             .withId(employee.getId())
             .withFirstName(employee.getFirstName())
             .withLastName(employee.getLastName())
-            .withAddress(employee.getAddress())
+            .withStreetNumber(employee.getAddress().getStreetNumber())
+            .withStreetName(employee.getAddress().getStreetName())
+            .withPostcode(employee.getAddress().getPostcode())
+            .withCity(employee.getAddress().getCity())
+            .withCountry(employee.getAddress().getCountry())
             .withSalary(employee.getSalary())
             .build();
   }

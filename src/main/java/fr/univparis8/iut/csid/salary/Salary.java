@@ -2,8 +2,10 @@ package fr.univparis8.iut.csid.salary;
 
 import fr.univparis8.iut.csid.employee.Employee;
 
+import java.util.Objects;
+
 public class Salary {
-  private Long id;
+  private final Long id;
   private final Employee employee;
   private final double amount;
   private final String monthYear;
@@ -23,9 +25,7 @@ public class Salary {
     return id;
   }
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+
 
   public Employee getEmployee() {
     return employee;
@@ -45,6 +45,17 @@ public class Salary {
 
   public int getDaysOfWork() {
     return daysOfWork;
+  }
+
+  public Salary mergeWith(Salary other) {
+    return Salary.SalaryBuilder.create()
+            .withId(id)
+            .withEmployee(Objects.requireNonNullElse(other.employee, employee))
+            .withAmount(Objects.requireNonNullElse(other.amount, amount))
+            .withMonthYear(Objects.requireNonNullElse(other.monthYear, monthYear))
+            .withPaymentDate(Objects.requireNonNullElse(other.paymentDate, paymentDate))
+            .withDaysOfWork(Objects.requireNonNullElse(other.daysOfWork, daysOfWork))
+            .build();
   }
 
 

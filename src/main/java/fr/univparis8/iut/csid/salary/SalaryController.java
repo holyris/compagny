@@ -1,7 +1,5 @@
 package fr.univparis8.iut.csid.salary;
 
-import fr.univparis8.iut.csid.annotation.IdAndBodyMatcher;
-import fr.univparis8.iut.csid.exception.IdMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,23 +21,32 @@ public class SalaryController {
   }
 
   @GetMapping
-  public List<SalaryDTO> getAllSalaries() {
+  public List<SalaryDto> getAllSalaries() {
     return salaryService.getAll();
   }
 
   @GetMapping("{id}")
-  public SalaryDTO getSalary(@PathVariable Long id) {
-    return SalaryMapper.toSalaryDTO(salaryService.get(id));
+  public SalaryDto getSalary(@PathVariable Long id) {
+    return SalaryMapper.toSalaryDto(salaryService.get(id));
   }
 
   @PostMapping
-  public ResponseEntity<SalaryDTO> createEmployee(@RequestBody SalaryDTO salaryDto) throws URISyntaxException {
+  public ResponseEntity<SalaryDto> createEmployee(@RequestBody SalaryDto salaryDto) throws URISyntaxException {
 
+    Salary salary = SalaryMapper.toSalary(salaryDto);
     if(salaryDto.getId() != null) {
       throw new IllegalArgumentException("Salary id should not be populated when creating an salary");
     }
 
-    Salary newSalary = salaryService.create(SalaryMapper.toSalary(salaryDto));
+    if (salaryService.salaryAlreadyExists(salary)
+    ) {
+      throw new IllegalArgumentException("This salary already exists ");
+    }
+
+    if(salary.getDaysOfWork() < 0 || salary.getDaysOfWork() > 21){
+      throw new IllegalArgumentException("days of work must be between 0 and 21");
+    }
+    Salary newSalary = salaryService.create(salary);
 
     URI uri = new URI(ServletUriComponentsBuilder.fromCurrentRequest()
             .pathSegment("{id}")
@@ -47,40 +54,40 @@ public class SalaryController {
             .toUri().getPath()
     );
 
-    return ResponseEntity.created(uri).body(SalaryMapper.toSalaryDTO(newSalary));
+    return ResponseEntity.created(uri).body(SalaryMapper.toSalaryDto(newSalary));
   }
 
-  @IdAndBodyMatcher
-  @PutMapping("{id}")
-  public SalaryDTO updateSalary(@PathVariable Long id, @RequestBody SalaryDTO salaryDTO) {
-    if(salaryDTO.getId() == null) {
-      throw new IllegalArgumentException("Salary id should be populated for HTTP PUT method: you cannot predict its id");
-    }
-
-    if(!id.equals(salaryDTO.getId())) {
-      throw new IdMismatchException("Path id and body id do not match");
-    }
-
-    Salary updatedSalary = salaryService.update(SalaryMapper.toSalary(salaryDTO));
-    return SalaryMapper.toSalaryDTO(updatedSalary);
-  }
-
-  @PatchMapping("{id}")
-  public SalaryDTO partialUpdateSalary(@PathVariable Long id, @RequestBody SalaryDTO salaryDTO) {
-    if(salaryDTO.getId() == null) {
-      throw new IllegalArgumentException("Salary id should be populated for HTTP PUT method: you cannot predict its id");
-    }
-    if(!id.equals(salaryDTO.getId())) {
-      throw new IdMismatchException("Path id and body id do not match");
-    }
-
-    Salary updatedSalary = salaryService.partialUpdate(SalaryMapper.toSalary(salaryDTO));
-    return SalaryMapper.toSalaryDTO(updatedSalary);
-  }
-
-  @DeleteMapping("{id}")
-  public void deleteSalary(@PathVariable Long id) {
-    salaryService.delete(id);
-  }
+//  @IdAndBodyMatcher
+//  @PutMapping("{id}")
+//  public SalaryDto updateSalary(@PathVariable Long id, @RequestBody SalaryDto salaryDTO) {
+//    if(salaryDTO.getId() == null) {
+//      throw new IllegalArgumentException("Salary id should be populated for HTTP PUT method: you cannot predict its id");
+//    }
+//
+//    if(!id.equals(salaryDTO.getId())) {
+//      throw new IdMismatchException("Path id and body id do not match");
+//    }
+//
+//    Salary updatedSalary = salaryService.update(SalaryMapper.toSalary(salaryDTO));
+//    return SalaryMapper.toSalaryDto(updatedSalary);
+//  }
+//
+//  @PatchMapping("{id}")
+//  public SalaryDto partialUpdateSalary(@PathVariable Long id, @RequestBody SalaryDto salaryDTO) {
+//    if(salaryDTO.getId() == null) {
+//      throw new IllegalArgumentException("Salary id should be populated for HTTP PUT method: you cannot predict its id");
+//    }
+//    if(!id.equals(salaryDTO.getId())) {
+//      throw new IdMismatchException("Path id and body id do not match");
+//    }
+//
+//    Salary updatedSalary = salaryService.partialUpdate(SalaryMapper.toSalary(salaryDTO));
+//    return SalaryMapper.toSalaryDto(updatedSalary);
+//  }
+//
+//  @DeleteMapping("{id}")
+//  public void deleteSalary(@PathVariable Long id) {
+//    salaryService.delete(id);
+//  }
 
 }
