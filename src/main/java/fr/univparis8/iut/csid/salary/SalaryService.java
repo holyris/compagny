@@ -46,33 +46,6 @@ public class SalaryService {
     return SalaryMapper.toSalariesDtoList(salaries);
   }
 
-  public Salary update(Salary salary) {
-    if (!salaryRepository.existsById(salary.getId())) {
-      throw new ObjectNotFoundException("Salary with id " + salary.getId() + " does not exist");
-    }
-    SalaryEntity savedSalary = salaryRepository.save(SalaryMapper.toSalaryEntity((salary)));
-    return SalaryMapper.toSalary(savedSalary);
-  }
-
-  public Salary partialUpdate(Salary salary) {
-    if (!salaryRepository.existsById(salary.getId())) {
-      throw new ObjectNotFoundException("Salary with id " + salary.getId() + " does not exist");
-    }
-
-    Salary currentSalary = SalaryMapper.toSalary(salaryRepository.getOne(salary.getId()));
-    Salary mergedSalary = currentSalary.mergeWith(salary);
-
-    SalaryEntity newSalary = salaryRepository.save(SalaryMapper.toSalaryEntity(mergedSalary));
-
-    return SalaryMapper.toSalary(newSalary);
-  }
-
-  public void delete(Long id) {
-    if (salaryRepository.existsById(id)) {
-      salaryRepository.deleteById(id);
-    }
-  }
-
   public boolean salaryAlreadyExists(Salary salary) {
     try{
       return salaryRepository.salaryAlreadyExists(salary.getEmployee().getId(), salary.getMonthYear())==1;

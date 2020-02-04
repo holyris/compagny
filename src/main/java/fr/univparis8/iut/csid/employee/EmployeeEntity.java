@@ -1,5 +1,6 @@
 package fr.univparis8.iut.csid.employee;
 
+import fr.univparis8.iut.csid.holiday.HolidayEntity;
 import fr.univparis8.iut.csid.salary.SalaryEntity;
 
 import javax.persistence.*;
@@ -18,6 +19,9 @@ public class EmployeeEntity {
 
   @OneToMany(mappedBy = "employee")
   private Set<SalaryEntity> salaries;
+
+  @OneToMany(mappedBy = "employee")
+  private Set<HolidayEntity> holidays;
 
   @Column(name = "first_name")
   private String firstName;
@@ -53,6 +57,22 @@ public class EmployeeEntity {
 
   public void setId(Long id) {
     this.id = id;
+  }
+
+  public Set<SalaryEntity> getSalaries() {
+    return salaries;
+  }
+
+  public void setSalaries(Set<SalaryEntity> salaries) {
+    this.salaries = salaries;
+  }
+
+  public Set<HolidayEntity> getHolidays() {
+    return holidays;
+  }
+
+  public void setHolidays(Set<HolidayEntity> holidays) {
+    this.holidays = holidays;
   }
 
   public String getFirstName() {
@@ -126,6 +146,7 @@ public class EmployeeEntity {
   public static final class EmployeeEntityBuilder {
     private Long id;
     private Set<SalaryEntity> salaries;
+    private Set<HolidayEntity> holidays;
     private String firstName;
     private String lastName;
     private int streetNumber;
@@ -149,6 +170,11 @@ public class EmployeeEntity {
 
     public EmployeeEntityBuilder withSalaries(Set<SalaryEntity> salaries) {
       this.salaries = salaries;
+      return this;
+    }
+
+    public EmployeeEntityBuilder withHolidays(Set<HolidayEntity> holidays) {
+      this.holidays = holidays;
       return this;
     }
 
@@ -195,6 +221,8 @@ public class EmployeeEntity {
     public EmployeeEntity build() {
       EmployeeEntity employeeEntity = new EmployeeEntity();
       employeeEntity.setId(id);
+      employeeEntity.setSalaries(salaries);
+      employeeEntity.setHolidays(holidays);
       employeeEntity.setFirstName(firstName);
       employeeEntity.setLastName(lastName);
       employeeEntity.setStreetNumber(streetNumber);
@@ -203,7 +231,6 @@ public class EmployeeEntity {
       employeeEntity.setCity(city);
       employeeEntity.setCountry(country);
       employeeEntity.setSalary(salary);
-      employeeEntity.salaries = this.salaries;
       return employeeEntity;
     }
   }
