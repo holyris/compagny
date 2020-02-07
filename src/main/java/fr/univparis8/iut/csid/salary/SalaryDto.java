@@ -16,9 +16,9 @@ public class SalaryDto {
   private double amount;
   private String monthYear;
   private String paymentDate;
-  private int daysOfWork;
 
-  public SalaryDto(Long id, Long idEmployee, String firstNameEmployee, String lastNameEmployee, double amount, String monthYear, String paymentDate, int daysOfWork) {
+
+  public SalaryDto(Long id, Long idEmployee, String firstNameEmployee, String lastNameEmployee, double amount, String monthYear, String paymentDate) {
     this.id = id;
     this.idEmployee = idEmployee;
     this.firstNameEmployee = firstNameEmployee;
@@ -26,7 +26,7 @@ public class SalaryDto {
     this.amount = amount;
     this.monthYear = monthYear;
     this.paymentDate = paymentDate;
-    this.daysOfWork = daysOfWork;
+
   }
 
   public SalaryDto() {
@@ -88,14 +88,6 @@ public class SalaryDto {
     this.paymentDate = paymentDate;
   }
 
-  public int getDaysOfWork() {
-    return daysOfWork;
-  }
-
-  public void setDaysOfWork(int daysOfWork) {
-    this.daysOfWork = daysOfWork;
-  }
-
   public static final class SalaryDtoBuilder {
     private Long id;
     private Long idEmployee;
@@ -104,7 +96,6 @@ public class SalaryDto {
     private double amount;
     private String monthYear;
     private String paymentDate;
-    private int daysOfWork;
 
     private SalaryDtoBuilder() {
     }
@@ -148,11 +139,6 @@ public class SalaryDto {
       return this;
     }
 
-    public SalaryDtoBuilder withDaysOfWork(int daysOfWork) {
-      this.daysOfWork = daysOfWork;
-      return this;
-    }
-
     public SalaryDto build() {
       SalaryDto salaryDto = new SalaryDto();
       salaryDto.setId(id);
@@ -162,7 +148,6 @@ public class SalaryDto {
       salaryDto.setAmount(amount);
       salaryDto.setMonthYear(monthYear);
       salaryDto.setPaymentDate(paymentDate);
-      salaryDto.setDaysOfWork(daysOfWork);
       return salaryDto;
     }
   }

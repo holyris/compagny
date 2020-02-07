@@ -1,9 +1,13 @@
 package fr.univparis8.iut.csid.holiday;
 
+import fr.univparis8.iut.csid.employee.Employee;
+import fr.univparis8.iut.csid.employee.EmployeeMapper;
 import fr.univparis8.iut.csid.exception.ObjectNotFoundException;
+import fr.univparis8.iut.csid.salary.Salary;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.PersistenceException;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -29,5 +33,13 @@ public class HolidayService {
   public List<HolidayDto> getAll() {
     List<Holiday> salaries = HolidayMapper.toHolidaysList(holidayRepository.findAll());
     return HolidayMapper.toHolidaysDtoList(salaries);
+  }
+
+  public int countByMonthYear(Employee employee, Salary salary){
+
+    LocalDate start = LocalDate.parse(salary.getMonthYear()+"-01");
+    LocalDate end = LocalDate.parse(salary.getMonthYear()+"-"+start.lengthOfMonth());
+
+    return this.holidayRepository.findAllByEmployeeAndDatetimeBetween(EmployeeMapper.toEmployeeEntity(employee),start,end).size();
   }
 }

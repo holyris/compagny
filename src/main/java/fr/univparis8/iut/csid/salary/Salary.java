@@ -10,15 +10,13 @@ public class Salary {
   private final double amount;
   private final String monthYear;
   private final String paymentDate;
-  private final int daysOfWork;
 
-  public Salary(Long id, Employee employee, double amount, String monthYear, String paymentDate, int daysOfWork) {
+  public Salary(Long id, Employee employee, double amount, String monthYear, String paymentDate) {
     this.id = id;
     this.employee = employee;
     this.amount = amount;
     this.monthYear = monthYear;
     this.paymentDate = paymentDate;
-    this.daysOfWork = daysOfWork;
   }
 
   public Long getId() {
@@ -43,9 +41,6 @@ public class Salary {
     return paymentDate;
   }
 
-  public int getDaysOfWork() {
-    return daysOfWork;
-  }
 
   public Salary mergeWith(Salary other) {
     return Salary.SalaryBuilder.create()
@@ -54,7 +49,6 @@ public class Salary {
             .withAmount(Objects.requireNonNullElse(other.amount, amount))
             .withMonthYear(Objects.requireNonNullElse(other.monthYear, monthYear))
             .withPaymentDate(Objects.requireNonNullElse(other.paymentDate, paymentDate))
-            .withDaysOfWork(Objects.requireNonNullElse(other.daysOfWork, daysOfWork))
             .build();
   }
 
@@ -65,7 +59,6 @@ public class Salary {
     private double amount;
     private String monthYear;
     private String paymentDate;
-    private int daysOfWork;
 
     private SalaryBuilder() {
     }
@@ -99,13 +92,8 @@ public class Salary {
       return this;
     }
 
-    public SalaryBuilder withDaysOfWork(int daysOfWork) {
-      this.daysOfWork = daysOfWork;
-      return this;
-    }
-
     public Salary build() {
-      return new Salary(id, employee, amount, monthYear, paymentDate, daysOfWork);
+      return new Salary(id, employee, amount, monthYear, paymentDate);
     }
   }
 }

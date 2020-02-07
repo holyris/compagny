@@ -3,7 +3,7 @@ package fr.univparis8.iut.csid.holiday;
 import fr.univparis8.iut.csid.employee.EmployeeEntity;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "holiday")
@@ -18,7 +18,7 @@ public class HolidayEntity {
   private EmployeeEntity employee;
 
   @Column(name = "datetime")
-  private Date datetime;
+  private LocalDate datetime;
 
   public HolidayEntity() {
   }
@@ -39,18 +39,18 @@ public class HolidayEntity {
     this.employee = employee;
   }
 
-  public Date getDatetime() {
+  public LocalDate getDatetime() {
     return datetime;
   }
 
-  public void setDatetime(Date datetime) {
+  public void setDatetime(LocalDate datetime) {
     this.datetime = datetime;
   }
 
   public static final class HolidayEntityBuilder {
     private Long id;
     private EmployeeEntity employee;
-    private Date datetime;
+    private LocalDate datetime;
 
     private HolidayEntityBuilder() {
     }
@@ -69,7 +69,7 @@ public class HolidayEntity {
       return this;
     }
 
-    public HolidayEntityBuilder withDatetime(Date datetime) {
+    public HolidayEntityBuilder withDatetime(LocalDate datetime) {
       this.datetime = datetime;
       return this;
     }

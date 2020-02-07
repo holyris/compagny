@@ -195,7 +195,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"idEmployee\":1,\n\t\"monthYear\":\"02/2019\",\n\t\"paymentDate\":\"2019/03/01\",\n\t\"daysOfWork\":17\n}",
+							"raw": "{\n\t\"idEmployee\":1,\n\t\"monthYear\":\"2020-02\",\n\t\"paymentDate\":\"2020-03-01\",\n}",
 							"options": {
 								"raw": {
 									"language": "json"

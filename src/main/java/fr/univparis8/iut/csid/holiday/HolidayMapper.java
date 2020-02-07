@@ -7,12 +7,16 @@ import fr.univparis8.iut.csid.salary.Salary;
 import fr.univparis8.iut.csid.salary.SalaryDto;
 import fr.univparis8.iut.csid.salary.SalaryEntity;
 import fr.univparis8.iut.csid.salary.SalaryMapper;
+import org.apache.tomcat.jni.Local;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class HolidayMapper {
 
@@ -31,25 +35,19 @@ public class HolidayMapper {
             .withId(holiday.getIdEmployee())
             .build();
 
-    Calendar calendar = Calendar.getInstance();
-    calendar.setTime(holiday.getStart());
+    Stream<LocalDate> stream= holiday.getStart().datesUntil(holiday.getEnd());
 
-    Calendar endCalendar = Calendar.getInstance();
-    endCalendar.setTime(holiday.getEnd());
+    List<LocalDate> list = stream.filter(b -> b.getDayOfWeek() != DayOfWeek.SUNDAY && b.getDayOfWeek() != DayOfWeek.SATURDAY)
+            .collect(Collectors.toList());
 
-    // get all dates between
-    while (calendar.before(endCalendar)) {
-      Date result = calendar.getTime();
-      if (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY && calendar.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY) {
-        holidays.add(
+    for (LocalDate date: list) {
+      holidays.add(
                 Holiday.HolidayBuilder.create()
                         .withId(holiday.getId())
                         .withEmployee(employee)
-                        .withDatetime(result)
+                        .withDatetime(date)
                         .build()
         );
-      }
-      calendar.add(Calendar.DATE, 1);
     }
 
     return holidays;

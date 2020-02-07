@@ -2,14 +2,14 @@ package fr.univparis8.iut.csid.holiday;
 
 import fr.univparis8.iut.csid.employee.Employee;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Holiday {
   private final Long id;
   private final Employee employee;
-  private final Date datetime ;
+  private final LocalDate datetime;
 
-  public Holiday(Long id, Employee employee, Date datetime) {
+  public Holiday(Long id, Employee employee, LocalDate datetime) {
     this.id = id;
     this.employee = employee;
     this.datetime = datetime;
@@ -23,14 +23,14 @@ public class Holiday {
     return employee;
   }
 
-  public Date getDatetime() {
+  public LocalDate getDatetime() {
     return datetime;
   }
 
   public static final class HolidayBuilder {
     private Long id;
     private Employee employee;
-    private Date datetime ;
+    private LocalDate datetime;
 
     private HolidayBuilder() {
     }
@@ -49,7 +49,7 @@ public class Holiday {
       return this;
     }
 
-    public HolidayBuilder withDatetime(Date datetime) {
+    public HolidayBuilder withDatetime(LocalDate datetime) {
       this.datetime = datetime;
       return this;
     }
