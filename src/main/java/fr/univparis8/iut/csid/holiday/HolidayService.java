@@ -7,8 +7,12 @@ import fr.univparis8.iut.csid.salary.Salary;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.PersistenceException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class HolidayService {
@@ -26,13 +30,30 @@ public class HolidayService {
     }
   }
 
-  public Holiday create(Holiday holiday) {
-    return HolidayMapper.toHoliday(holidayRepository.save(HolidayMapper.toHolidayEntity(holiday)));
+  public List<Holiday> create(HolidayRequest holiday) {
+
+    List<Holiday> holidays = new ArrayList<>();
+
+    Stream<LocalDate> stream= holiday.getStart().datesUntil(holiday.getEnd());
+
+    List<LocalDate> list = stream.collect(Collectors.toList());
+
+    for (LocalDate date: list) {
+      holidays.add(
+              Holiday.HolidayBuilder.create()
+                      .withEmployee(holiday.getEmployee())
+                      .withDatetime(date)
+                      .build()
+      );
+    }
+
+    holidays = holidays.stream().filter(b -> b.getDatetime().getDayOfWeek() != DayOfWeek.SUNDAY && b.getDatetime().getDayOfWeek() != DayOfWeek.SATURDAY).collect(Collectors.toList());
+
+    return HolidayMapper.toHolidaysList(holidayRepository.saveAll(HolidayMapper.toHolidaysEntity(holidays)));
   }
 
-  public List<HolidayDto> getAll() {
-    List<Holiday> salaries = HolidayMapper.toHolidaysList(holidayRepository.findAll());
-    return HolidayMapper.toHolidaysDtoList(salaries);
+  public List<Holiday> getAll() {
+    return HolidayMapper.toHolidaysList(holidayRepository.findAll());
   }
 
   public int countByMonthYear(Employee employee, Salary salary){

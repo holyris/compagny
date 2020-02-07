@@ -46,9 +46,9 @@ public class SalaryService {
     return SalaryMapper.toSalary(salaryRepository.save(SalaryMapper.toSalaryEntity(salary)));
   }
 
-  public List<SalaryDto> getAll() {
-    List<Salary> salaries = SalaryMapper.toSalariesList(salaryRepository.findAll());
-    return SalaryMapper.toSalariesDtoList(salaries);
+  public List<Salary> getAll() {
+
+    return SalaryMapper.toSalariesList(salaryRepository.findAll());
   }
 
   public boolean salaryAlreadyExists(Salary salary) {

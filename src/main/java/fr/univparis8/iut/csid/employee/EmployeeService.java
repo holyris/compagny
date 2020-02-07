@@ -29,9 +29,8 @@ public class EmployeeService {
     return EmployeeMapper.toEmployee(employeeRepository.save(EmployeeMapper.toEmployeeEntity(employee)));
   }
 
-  public List<EmployeeDto> getAll() {
-    List<Employee> employees = EmployeeMapper.toEmployeesList(employeeRepository.findAll());
-    return EmployeeMapper.toEmployeesDtoList(employees);
+  public List<Employee> getAll() {
+    return EmployeeMapper.toEmployeesList(employeeRepository.findAll());
   }
 
   public Employee update(Employee employee) {

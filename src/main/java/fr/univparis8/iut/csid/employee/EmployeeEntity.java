@@ -17,10 +17,10 @@ public class EmployeeEntity {
   @Column(name = "id")
   private Long id;
 
-  @OneToMany(mappedBy = "employee")
+  @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
   private Set<SalaryEntity> salaries;
 
-  @OneToMany(mappedBy = "employee")
+  @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
   private Set<HolidayEntity> holidays;
 
   @Column(name = "first_name")

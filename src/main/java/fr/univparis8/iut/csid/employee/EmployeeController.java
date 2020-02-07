@@ -26,7 +26,7 @@ public class EmployeeController {
 
   @GetMapping
   public List<EmployeeDto> getAllEmployees() {
-    return employeeService.getAll();
+    return EmployeeMapper.toEmployeesDtoList(employeeService.getAll());
   }
 
   @GetMapping("{id}")
@@ -89,5 +89,4 @@ public class EmployeeController {
   public void deleteEmployee(@PathVariable Long id) {
     employeeService.delete(id);
   }
-
 }
