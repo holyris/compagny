@@ -1,8 +1,6 @@
 package fr.univparis8.iut.csid.holiday;
 
-import fr.univparis8.iut.csid.employee.Employee;
-import fr.univparis8.iut.csid.employee.EmployeeEntity;
-import fr.univparis8.iut.csid.employee.EmployeeMapper;
+import fr.univparis8.iut.csid.employee.*;
 import fr.univparis8.iut.csid.salary.Salary;
 import fr.univparis8.iut.csid.salary.SalaryDto;
 import fr.univparis8.iut.csid.salary.SalaryEntity;
@@ -62,6 +60,27 @@ public class HolidayMapper {
             .withDatetime(holiday.getDatetime())
             .build();
 
+  }
+
+  public static Holiday toHoliday(HolidayDtoUpdate holiday){
+    Employee employee = Employee.EmployeeBuilder.create()
+            .withId(holiday.getIdEmployee())
+            .build();
+
+    return Holiday.HolidayBuilder.create()
+            .withId(holiday.getId())
+            .withEmployee(employee)
+            .withDatetime(holiday.getDatetime())
+            .build();
+
+  }
+
+  public static HolidayDtoUpdate toHolidayDtoUpdate(Holiday holiday){
+    return HolidayDtoUpdate.HolidayDtoUpdateBuilder.create()
+            .withId(holiday.getId())
+            .withIdEmployee(holiday.getEmployee().getId())
+            .withDatetime(holiday.getDatetime())
+            .build();
   }
 
   public static HolidayEntity toHolidayEntity(Holiday holiday) {

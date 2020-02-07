@@ -35,6 +35,7 @@ public class SalaryService {
     Employee employee = employeeService.get(salary.getEmployee().getId());
     int numberOfHolidays = this.holidayService.countByMonthYear(employee, salary);
     double amount = (employee.getSalary() * (21-numberOfHolidays)) / 21;
+    if(amount<=0)amount=0;
     salary = Salary.SalaryBuilder.create()
             .withId(salary.getId())
             .withEmployee(salary.getEmployee())
