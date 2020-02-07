@@ -20,20 +20,8 @@ public class SalaryEntity {
   private String monthYear;
   @Column(name = "payment_date")
   private String paymentDate;
-  @Column(name = "daysOfWork")
-  private int daysOfWork;
 
   public SalaryEntity() {
-  }
-
-
-  public SalaryEntity(Long id, EmployeeEntity employee, double amount, String monthYear, String paymentDate, int daysOfWork) {
-    this.id = id;
-    this.employee = employee;
-    this.amount = amount;
-    this.monthYear = monthYear;
-    this.paymentDate = paymentDate;
-    this.daysOfWork = daysOfWork;
   }
 
   public Long getId() {
@@ -76,14 +64,6 @@ public class SalaryEntity {
     this.paymentDate = paymentDate;
   }
 
-  public int getDaysOfWork() {
-    return daysOfWork;
-  }
-
-  public void setDaysOfWork(int daysOfWork) {
-    this.daysOfWork = daysOfWork;
-  }
-
 
   public static final class SalaryEntityBuilder {
     private Long id;
@@ -91,7 +71,6 @@ public class SalaryEntity {
     private double amount;
     private String monthYear;
     private String paymentDate;
-    private int daysOfWork;
 
     private SalaryEntityBuilder() {
     }
@@ -125,13 +104,14 @@ public class SalaryEntity {
       return this;
     }
 
-    public SalaryEntityBuilder withDaysOfWork(int daysOfWork) {
-      this.daysOfWork = daysOfWork;
-      return this;
-    }
-
     public SalaryEntity build() {
-      return new SalaryEntity(id, employee, amount, monthYear, paymentDate, daysOfWork);
+      SalaryEntity salaryEntity = new SalaryEntity();
+      salaryEntity.setId(id);
+      salaryEntity.setEmployee(employee);
+      salaryEntity.setAmount(amount);
+      salaryEntity.setMonthYear(monthYear);
+      salaryEntity.setPaymentDate(paymentDate);
+      return salaryEntity;
     }
   }
 }

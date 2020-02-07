@@ -18,7 +18,6 @@ public class SalaryMapper {
             .withAmount(salary.getAmount())
             .withMonthYear(salary.getMonthYear())
             .withPaymentDate(salary.getPaymentDate())
-            .withDaysOfWork(salary.getDaysOfWork())
             .build();
 
   }
@@ -33,7 +32,6 @@ public class SalaryMapper {
             .withAmount(salary.getAmount())
             .withMonthYear(salary.getMonthYear())
             .withPaymentDate(salary.getPaymentDate())
-            .withDaysOfWork(salary.getDaysOfWork())
             .build();
   }
 
@@ -45,7 +43,6 @@ public class SalaryMapper {
             .withAmount(salary.getAmount())
             .withMonthYear(salary.getMonthYear())
             .withPaymentDate(salary.getPaymentDate())
-            .withDaysOfWork(salary.getDaysOfWork())
             .build();
   }
 
@@ -60,7 +57,6 @@ public class SalaryMapper {
             .withAmount(salary.getAmount())
             .withMonthYear(salary.getMonthYear())
             .withPaymentDate(salary.getPaymentDate())
-            .withDaysOfWork(salary.getDaysOfWork())
             .build();
   }
 

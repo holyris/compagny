@@ -2,25 +2,25 @@ package fr.univparis8.iut.csid.holiday;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class HolidayDto {
   private Long id;
   private Long idEmployee;
 
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-  private Date start;
+  private LocalDate start;
 
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-  private Date end;
+  private LocalDate end;
 
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-  private Date datetime;
+  private LocalDate datetime;
 
   public HolidayDto() {
   }
 
-  public HolidayDto(Long id, Long idEmployee, Date start, Date end, Date datetime) {
+  public HolidayDto(Long id, Long idEmployee, LocalDate start, LocalDate end, LocalDate datetime) {
     this.id = id;
     this.idEmployee = idEmployee;
     this.start = start;
@@ -44,36 +44,36 @@ public class HolidayDto {
     this.idEmployee = idEmployee;
   }
 
-  public Date getStart() {
+  public LocalDate getStart() {
     return start;
   }
 
-  public void setStart(Date start) {
+  public void setStart(LocalDate start) {
     this.start = start;
   }
 
-  public Date getEnd() {
+  public LocalDate getEnd() {
     return end;
   }
 
-  public void setEnd(Date end) {
+  public void setEnd(LocalDate end) {
     this.end = end;
   }
 
-  public Date getDatetime() {
+  public LocalDate getDatetime() {
     return datetime;
   }
 
-  public void setDatetime(Date datetime) {
+  public void setDatetime(LocalDate datetime) {
     this.datetime = datetime;
   }
 
   public static final class HolidayDtoBuilder {
     private Long id;
     private Long idEmployee;
-    private Date start;
-    private Date end;
-    private Date datetime;
+    private LocalDate start;
+    private LocalDate end;
+    private LocalDate datetime;
 
     private HolidayDtoBuilder() {
     }
@@ -92,17 +92,17 @@ public class HolidayDto {
       return this;
     }
 
-    public HolidayDtoBuilder withStart(Date start) {
+    public HolidayDtoBuilder withStart(LocalDate start) {
       this.start = start;
       return this;
     }
 
-    public HolidayDtoBuilder withEnd(Date end) {
+    public HolidayDtoBuilder withEnd(LocalDate end) {
       this.end = end;
       return this;
     }
 
-    public HolidayDtoBuilder withDatetime(Date datetime) {
+    public HolidayDtoBuilder withDatetime(LocalDate datetime) {
       this.datetime = datetime;
       return this;
     }

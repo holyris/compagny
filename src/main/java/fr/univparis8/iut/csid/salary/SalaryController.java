@@ -42,10 +42,6 @@ public class SalaryController {
     ) {
       throw new IllegalArgumentException("This salary already exists ");
     }
-
-    if(salary.getDaysOfWork() < 0 || salary.getDaysOfWork() > 21){
-      throw new IllegalArgumentException("days of work must be between 0 and 21");
-    }
     Salary newSalary = salaryService.create(salary);
 
     URI uri = new URI(ServletUriComponentsBuilder.fromCurrentRequest()

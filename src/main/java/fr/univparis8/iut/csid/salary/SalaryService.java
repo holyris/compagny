@@ -1,8 +1,10 @@
 package fr.univparis8.iut.csid.salary;
 
+import fr.univparis8.iut.csid.employee.Employee;
 import fr.univparis8.iut.csid.employee.EmployeeRepository;
 import fr.univparis8.iut.csid.employee.EmployeeService;
 import fr.univparis8.iut.csid.exception.ObjectNotFoundException;
+import fr.univparis8.iut.csid.holiday.HolidayService;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.PersistenceException;
@@ -13,11 +15,12 @@ public class SalaryService {
 
   private final SalaryRepository salaryRepository;
   private final EmployeeService employeeService;
+  private final HolidayService holidayService;
 
-
-  public SalaryService(SalaryRepository salaryRepository, EmployeeService employeeService) {
+  public SalaryService(SalaryRepository salaryRepository, EmployeeService employeeService, HolidayService holidayService) {
     this.salaryRepository = salaryRepository;
     this.employeeService = employeeService;
+    this.holidayService = holidayService;
   }
 
   public Salary get(Long id) {
@@ -29,14 +32,15 @@ public class SalaryService {
   }
 
   public Salary create(Salary salary) {
-    double amount = (employeeService.get(salary.getEmployee().getId()).getSalary() * salary.getDaysOfWork()) / 21;
+    Employee employee = employeeService.get(salary.getEmployee().getId());
+    int numberOfHolidays = this.holidayService.countByMonthYear(employee, salary);
+    double amount = (employee.getSalary() * (21-numberOfHolidays)) / 21;
     salary = Salary.SalaryBuilder.create()
             .withId(salary.getId())
             .withEmployee(salary.getEmployee())
             .withAmount(amount)
             .withMonthYear(salary.getMonthYear())
             .withPaymentDate((salary.getPaymentDate()))
-            .withDaysOfWork(salary.getDaysOfWork())
             .build();
     return SalaryMapper.toSalary(salaryRepository.save(SalaryMapper.toSalaryEntity(salary)));
   }
