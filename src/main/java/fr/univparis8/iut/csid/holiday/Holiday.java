@@ -3,6 +3,7 @@ package fr.univparis8.iut.csid.holiday;
 import fr.univparis8.iut.csid.employee.Employee;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Holiday {
   private final Long id;
@@ -27,6 +28,14 @@ public class Holiday {
     return datetime;
   }
 
+  public Holiday mergeWith(Holiday other) {
+    return HolidayBuilder.create()
+            .withId(id)
+            .withEmployee(Objects.requireNonNullElse(other.employee, employee))
+            .withDatetime(Objects.requireNonNullElse(other.datetime, datetime))
+            .build();
+  }
+
   public static final class HolidayBuilder {
     private Long id;
     private Employee employee;
@@ -34,6 +43,8 @@ public class Holiday {
 
     private HolidayBuilder() {
     }
+
+
 
     public static HolidayBuilder create() {
       return new HolidayBuilder();

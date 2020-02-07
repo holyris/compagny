@@ -42,4 +42,20 @@ public class HolidayService {
 
     return this.holidayRepository.findAllByEmployeeAndDatetimeBetween(EmployeeMapper.toEmployeeEntity(employee),start,end).size();
   }
+
+  public void delete(Long id){
+    if(holidayRepository.existsById(id))holidayRepository.deleteById(id);
+
+  }
+
+  public Holiday partialUpdate(Holiday holiday){
+    if(!holidayRepository.existsById(holiday.getId()))throw new ObjectNotFoundException("Holiday with id " + holiday.getId() + " does not exist");
+
+    Holiday currentHoliday = HolidayMapper.toHoliday(holidayRepository.getOne(holiday.getId()));
+    Holiday mergedHoliday = currentHoliday.mergeWith(holiday);
+
+    HolidayEntity newHoliday = holidayRepository.save(HolidayMapper.toHolidayEntity(mergedHoliday));
+
+    return HolidayMapper.toHoliday(newHoliday);
+  }
 }

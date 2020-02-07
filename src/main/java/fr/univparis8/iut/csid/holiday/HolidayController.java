@@ -1,6 +1,6 @@
 package fr.univparis8.iut.csid.holiday;
 
-import fr.univparis8.iut.csid.salary.SalaryMapper;
+import fr.univparis8.iut.csid.exception.IdMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +8,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -41,10 +40,9 @@ public class HolidayController {
     }
 
     List<Holiday> holidays = HolidayMapper.toHolidays(holidayDto);
-    List<Holiday> newHolidays = new ArrayList<>();
     for (Holiday h : holidays
     ) {
-      newHolidays.add(holidayService.create(h));
+      holidayService.create(h);
     }
 
     URI uri = new URI(ServletUriComponentsBuilder.fromCurrentRequest()
@@ -55,4 +53,38 @@ public class HolidayController {
     return ResponseEntity.created(uri).body(holidayDto);
 
   }
+
+  @DeleteMapping("{id}")
+  public  void deleteHoliday(@PathVariable Long id){
+    holidayService.delete(id);
+  }
+
+  @PatchMapping("{id}")
+  public HolidayDtoUpdate  partialUpdateHoliday(@PathVariable Long id, @RequestBody HolidayDtoUpdate holidayDto) throws URISyntaxException{
+    if(holidayDto.getId() == null) {
+      throw new IllegalArgumentException("Holiday id should be populated for HTTP PUT method: you cannot predict its id");
+    }
+    if(!id.equals(holidayDto.getId())) {
+      throw new IdMismatchException("Path id and body id do not match");
+    }
+
+    Holiday updatedHoliday = holidayService.partialUpdate(HolidayMapper.toHoliday(holidayDto));
+    return HolidayMapper.toHolidayDtoUpdate(updatedHoliday);
+  }
+
+  @PutMapping("{id}")
+  public HolidayDtoUpdate updateHoliday(@PathVariable Long id, @RequestBody HolidayDtoUpdate holidayDto) {
+    if(holidayDto.getId() == null) {
+      throw new IllegalArgumentException("Holiday id should be populated for HTTP PUT method: you cannot predict its id");
+    }
+
+    if(!id.equals(holidayDto.getId())) {
+      throw new IdMismatchException("Path id and body id do not match");
+    }
+
+    Holiday updatedHoliday = holidayService.partialUpdate(HolidayMapper.toHoliday(holidayDto));
+    return HolidayMapper.toHolidayDtoUpdate(updatedHoliday);
+  }
+
+
 }
