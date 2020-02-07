@@ -11,13 +11,17 @@ public class SalaryEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn
   private EmployeeEntity employee;
+
   @Column(name = "amount")
   private double amount;
+
   @Column(name = "month_year")
   private String monthYear;
+
   @Column(name = "payment_date")
   private String paymentDate;
 
